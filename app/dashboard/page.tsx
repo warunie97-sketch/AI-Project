@@ -1,6 +1,6 @@
 "use client";
-import AuthGuard from "@/app/components/AuthGuard";
-import { supabaseBrowser } from "@/lib/supabaseClient";
+import AuthGuard from "../components/AuthGuard";
+import { supabaseBrowser } from "../../lib/supabaseClient";
 import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
