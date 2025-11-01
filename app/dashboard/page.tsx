@@ -1,5 +1,5 @@
 "use client";
-import AuthGuard from "@/components/AuthGuard";
+import AuthGuard from "@/app/components/AuthGuard";
 import { supabaseBrowser } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 
