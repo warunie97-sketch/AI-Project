@@ -1,16 +1,33 @@
 "use client";
-import { createClient } from "@supabase/supabase-js";
+import { useState } from "react";
+import { supabaseBrowser } from "../../lib/supabaseClient";
+import Link from "next/link";
 
-export const supabaseBrowser = () => {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-      },
-    }
+export default function LoginPage() {
+  const supabase = supabaseBrowser();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function login(e: React.FormEvent) {
+    e.preventDefault();
+    await supabase.auth.signInWithPassword({ email, password });
+  }
+
+  return (
+    <div style={{ padding: "40px" }}>
+      <h2>Log Masuk</h2>
+      <form onSubmit={login}>
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+        <button type="submit">Log Masuk</button>
+      </form>
+
+      <p>
+        Tiada akaun?{" "}
+        <Link href="/auth/register">
+          Daftar di sini
+        </Link>
+      </p>
+    </div>
   );
-};
+}
